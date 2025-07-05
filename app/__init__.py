@@ -1,13 +1,27 @@
 from flask import Flask, jsonify, request, abort
+from flask_cors import CORS
 from app.mock_data import users, products, orders, carts
 
 def create_app():
     app = Flask(__name__)
+    
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
     # Products API Routes
     @app.route("/api/v1/products", methods=["GET"])
     def get_products():
-        return jsonify(products)
+        search_query = request.args.get('search', '').lower()
+        new_products_query = request.args.get('new', '').lower() == 'true'
+         
+        if search_query: # search results
+            filtered_products = [product for product in products if search_query in product["name"].lower()]
+            return jsonify(filtered_products)
+        
+        elif new_products_query: # newest 5 items for home page
+            return jsonify(products[-5:])
+
+        else: # general get all products
+            return jsonify(products)
 
     @app.route("/api/v1/products/<int:id>", methods=["GET"])
     def get_product(id: int):
