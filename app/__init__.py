@@ -41,8 +41,8 @@ def create_app():
             "id": new_id,
             "name": request.json["name"],
             "description": request.json["description"],
-            "price": request.json["price"],
-            "inventory": request.json["inventory"],
+            "price": float(request.json["price"]),
+            "quantity": int(request.json["quantity"]),
             "category": request.json["category"],
             "image_url": request.json["image_url"],
         }
@@ -59,7 +59,7 @@ def create_app():
         if not request.json():
             abort(400, description="Missing JSON payload")
 
-        updatable_fields = updatable_fields = ['name', 'description', 'price', 'inventory', 'category', 'image_url']
+        updatable_fields = ['name', 'description', 'price', 'quantity', 'category', 'image_url']
         for field in updatable_fields:
             if field in request.json:
                 product[field] = request.json[field]
