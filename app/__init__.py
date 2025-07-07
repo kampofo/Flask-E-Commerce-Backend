@@ -36,7 +36,9 @@ def create_app():
         if not request.json:
             abort(400, description="Missing 'field' in request")
         
+        # calculate new id based on last max id
         new_id = max(product['id'] for product in products)+1 if products else 1
+        
         new_product = {
             "id": new_id,
             "name": request.json["name"],
@@ -56,13 +58,17 @@ def create_app():
         
         if product is None:
             abort(404, description="Product not found")
-        if not request.json():
+        
+        if not request.json:
             abort(400, description="Missing JSON payload")
 
-        updatable_fields = ['name', 'description', 'price', 'quantity', 'category', 'image_url']
+        updatable_fields = {'name', 'description', 'price', 'quantity', 'category', 'image_url'}
+        
         for field in updatable_fields:
-            if field in request.json:
+            if field in request.json and request.json[field]:
                 product[field] = request.json[field]
+        
+        return jsonify(product), 200
     
     @app.route("/api/v1/products/<int:id>", methods=["DELETE"])
     def delete_product(id:int):
