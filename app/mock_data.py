@@ -96,7 +96,7 @@ products = [
         "name": "Wireless Bluetooth Headphones",
         "description": "High-quality sound with noise cancellation.",
         "price": 99.99,
-        "inventory": 50,
+        "quantity": 50,
         "category": "electronics",
         "image_url": "/static/img/headphones.jpg"
     },
@@ -105,7 +105,7 @@ products = [
         "name": "Classic White T-Shirt",
         "description": "100% cotton, comfortable and casual.",
         "price": 19.99,
-        "inventory": 150,
+        "quantity": 150,
         "category": "apparel",
         "image_url": "/static/img/white_tshirt.jpg"
     },
@@ -114,7 +114,7 @@ products = [
         "name": "Stainless Steel Water Bottle",
         "description": "Keeps drinks cold for 24 hours and hot for 12 hours.",
         "price": 24.99,
-        "inventory": 100,
+        "quantity": 100,
         "category": "accessories",
         "image_url": "/static/img/water_bottle.jpg"
     }
